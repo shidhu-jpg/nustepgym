@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+    PAGE TITLE
+    → Change "NuStep Fitness Gym" to the actual gym name if different
+    → The text after "–" is the tagline shown in browser tab
+  ============================================================ -->
+  <title>NuStep Fitness Gym – Unleash Your Potential</title>
+
+  <!-- Loads our own CSS file (style.css) -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ============================================================
+    FONTS  (loaded from Google — requires internet)
+    → "Barlow Condensed" = bold heading font (like on gym posters)
+    → "Inter" = clean body text font
+    → Do NOT change these unless you want a different font style
+  ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+    ICONS  (Font Awesome — loaded from internet)
+    → Provides all the small icons (dumbbell, phone, check, etc.)
+    → Do NOT remove this line or all icons will disappear
+  ============================================================ -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+    SECTION 1 — NAVIGATION BAR
+    ─────────────────────────────────────────────────────────────
+    This is the top bar fixed to the screen while the user scrolls.
+    It starts transparent over the hero image, then turns dark once
+    the user scrolls down (handled in script.js → navbar scroll).
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Logo text: "NU" + "STEP" + "FITNESS GYM" — change if gym name is different
+    → Nav links: add/remove menu items by copying/deleting <li> tags
+    → "Join Now" button: currently links to #contact section
+  ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+
+      <!-- LOGO: "NU" is red, "STEP" is white, "FITNESS GYM" is small gray sub-text -->
+      <a href="#home" class="logo">
+        <span class="logo-nu">NU</span><span class="logo-step">STEP</span>
+        <span class="logo-sub">FITNESS GYM</span>
+      </a>
+
+      <!-- NAV LINKS: each href="#sectionId" scrolls to that section -->
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#bmi">BMI Calculator</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <!-- CTA BUTTON in top-right corner — links to contact section -->
+      <a href="#contact" class="btn btn-primary nav-cta">Join Now</a>
+
+      <!-- HAMBURGER MENU: 3 lines that appear on mobile (≤768px screens)
+           Clicking it opens/closes the nav links on small screens -->
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+    SECTION 2 — HERO (Full-Screen Opening Banner)
+    ─────────────────────────────────────────────────────────────
+    The big first thing visitors see. Has a gym background image,
+    a dark overlay, headline, description, two buttons, and
+    3 key stats at the bottom.
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Background image: change in style.css → .hero → background: url(...)
+    → "Jalandhar's Premier Fitness Destination" — the small red badge text
+    → Main headline: "UNLEASH YOUR / TRUE STRENGTH"
+    → Description text below the headline
+    → Stats: "500+ Active Members", "10+ Expert Trainers", "5+ Years" — UPDATE with real numbers
+    → Button 1 "Get Started" goes to #pricing
+    → Button 2 "Check Your BMI" goes to #bmi calculator
+  ============================================================ -->
+  <section class="hero" id="home">
+    <!-- Dark gradient overlay so text is readable over the photo -->
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+      <!-- Small pill/badge above the headline -->
+      <p class="hero-tag">Jalandhar's Premier Fitness Destination</p>
+
+      <!-- Main headline — <span class="accent"> makes "TRUE STRENGTH" red -->
+      <h1 class="hero-title">UNLEASH YOUR<br /><span class="accent">TRUE STRENGTH</span></h1>
+
+      <!-- Sub-description paragraph -->
+      <p class="hero-desc">State-of-the-art equipment • Expert trainers • Real results<br />Your transformation starts the moment you walk through our doors.</p>
+
+      <!-- TWO CALL-TO-ACTION BUTTONS -->
+      <div class="hero-btns">
+        <a href="#pricing" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="#bmi" class="btn btn-outline btn-lg">Check Your BMI</a>
+      </div>
+
+      <!-- STATS ROW — 3 numbers with labels, separated by thin vertical lines -->
+      <div class="hero-stats">
+        <!-- STAT 1: Change "500+" and "Active Members" to real numbers -->
+        <div class="stat">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Active Members</span>
+        </div>
+        <div class="stat-divider"></div><!-- vertical line separator -->
+
+        <!-- STAT 2 -->
+        <div class="stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Expert Trainers</span>
+        </div>
+        <div class="stat-divider"></div>
+
+        <!-- STAT 3 -->
+        <div class="stat">
+          <span class="stat-num">5+</span>
+          <span class="stat-label">Years of Excellence</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 3 — MARQUEE (Scrolling Services Ticker)
+    ─────────────────────────────────────────────────────────────
+    A red banner that auto-scrolls service names left to right.
+    Items are duplicated (appear twice) so the scroll loops smoothly
+    without a visible gap. Speed is controlled in style.css →
+    .marquee-track → animation: marquee 25s
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Add/remove service names — but keep the list duplicated (copy
+      whatever you add to both halves of the list)
+    → Each <span class="dot"> is just a red bullet separator
+  ============================================================ -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <!-- FIRST COPY of items -->
+      <span>STRENGTH TRAINING</span><span class="dot">●</span>
+      <span>CARDIO</span><span class="dot">●</span>
+      <span>WEIGHT LOSS</span><span class="dot">●</span>
+      <span>MUSCLE GAIN</span><span class="dot">●</span>
+      <span>YOGA</span><span class="dot">●</span>
+      <span>ZUMBA</span><span class="dot">●</span>
+      <span>PERSONAL TRAINING</span><span class="dot">●</span>
+      <span>DIET PLANNING</span><span class="dot">●</span>
+      <!-- SECOND COPY — needed to make the loop seamless -->
+      <span>STRENGTH TRAINING</span><span class="dot">●</span>
+      <span>CARDIO</span><span class="dot">●</span>
+      <span>WEIGHT LOSS</span><span class="dot">●</span>
+      <span>MUSCLE GAIN</span><span class="dot">●</span>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+    SECTION 4 — ABOUT
+    ─────────────────────────────────────────────────────────────
+    Two-column layout: photos on the left, text on the right.
+    Left side has: a large main photo, a small overlapping photo,
+    and a red badge showing "5+ Years Strong".
+    Right side has: tag, title, description, bullet list, button.
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Main photo URL (about-img-main src="...")
+    → Small overlapping photo URL (about-img-sm src="...")
+    → "5+" badge number and "Years Strong" text
+    → Paragraph text (the about-desc paragraph)
+    → Bullet list items (each <li> inside about-list)
+    → "₹799/month" in the last bullet — update to real starting price
+    → Button text "Book a Free Trial" — can change to "Contact Us" etc.
+  ============================================================ -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- LEFT SIDE: Photos -->
+        <div class="about-images">
+          <!-- MAIN large photo -->
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Gym interior" class="about-img-main" />
+
+          <!-- SMALL overlapping photo (bottom-right corner of main photo) -->
+          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&q=80" alt="Weight training" class="about-img-sm" />
+
+          <!-- RED BADGE (top-left, overlapping the photo) -->
+          <div class="about-badge">
+            <span class="badge-num">5+</span>     <!-- Change this number -->
+            <span class="badge-txt">Years Strong</span>  <!-- Change this text -->
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: Text content -->
+        <div class="about-content">
+          <!-- Small red uppercase label above the title -->
+          <p class="section-tag">About NuStep</p>
+
+          <!-- Section heading -->
+          <h2 class="section-title">More Than a Gym —<br /><span class="accent">A Community</span></h2>
+
+          <!-- Main paragraph — CHANGE this to the gym's real story -->
+          <p class="about-desc">Located in the heart of Jalandhar, NuStep Fitness Gym is built for people who are serious about their health. Whether you're just starting out or chasing peak performance, our facility has everything you need to reach your goals.</p>
+
+          <!-- BULLET LIST of highlights — add/remove <li> items freely -->
+          <ul class="about-list">
+            <!-- Each li: fa-check icon + text. "accent" class makes the icon red -->
+            <li><i class="fa-solid fa-check accent"></i> Premium equipment from leading brands</li>
+            <li><i class="fa-solid fa-check accent"></i> Certified personal trainers for all levels</li>
+            <li><i class="fa-solid fa-check accent"></i> Separate zones for cardio, free weights & machines</li>
+            <li><i class="fa-solid fa-check accent"></i> Clean locker rooms & shower facilities</li>
+            <!-- UPDATE ₹799 to the actual starting price -->
+            <li><i class="fa-solid fa-check accent"></i> Flexible membership plans starting ₹799/month</li>
+          </ul>
+
+          <!-- CTA button at the bottom of about section -->
+          <a href="#contact" class="btn btn-primary">Book a Free Trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 5 — SERVICES (What We Offer)
+    ─────────────────────────────────────────────────────────────
+    A 3-column grid of service cards. Each card has an icon, title,
+    and description. On hover, the card lifts up and a red bar
+    appears at the top, and the icon background turns solid red.
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Section subtitle "Everything under one roof..."
+    → Each card: icon (fa-solid fa-...), title (h3), description (p)
+    → To CHANGE an icon, find a new one at fontawesome.com/icons
+      and replace "fa-dumbbell" with the new icon name
+    → To ADD a new card: copy one full <div class="service-card">
+      block and paste it. Grid auto-adjusts to 3 per row.
+    → To REMOVE a card: delete the entire <div class="service-card">
+      block
+    → "50+" in Cardio Zone — update to real machine count
+  ============================================================ -->
+  <section class="services section bg-dark" id="services">
+    <!-- bg-dark = this section has a slightly lighter dark background -->
+    <div class="container">
+      <div class="section-header">
+        <!-- Small red label -->
+        <p class="section-tag">What We Offer</p>
+        <!-- Main heading -->
+        <h2 class="section-title">World-Class <span class="accent">Services</span></h2>
+        <!-- Subtitle below heading -->
+        <p class="section-sub">Everything under one roof to transform your body and mind</p>
+      </div>
+
+      <!-- 3-COLUMN GRID of service cards -->
+      <div class="services-grid">
+
+        <!-- SERVICE CARD 1: Strength Training -->
+        <div class="service-card">
+          <!-- Icon: change "fa-dumbbell" to any Font Awesome icon name -->
+          <div class="service-icon"><i class="fa-solid fa-dumbbell"></i></div>
+          <h3>Strength Training</h3>
+          <p>Build power and muscle with our extensive free weights and cable machines setup designed for every level.</p>
+        </div>
+
+        <!-- SERVICE CARD 2: Cardio -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+          <h3>Cardio Zone</h3>
+          <p>50+ cardio machines including treadmills, cycles, ellipticals and rowing machines for maximum fat burn.</p>
+        </div>
+
+        <!-- SERVICE CARD 3: Personal Training -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-person-running"></i></div>
+          <h3>Personal Training</h3>
+          <p>One-on-one sessions with our certified trainers who craft personalised programs tailored to your goals.</p>
+        </div>
+
+        <!-- SERVICE CARD 4: Yoga & Zumba -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-spa"></i></div>
+          <h3>Yoga & Zumba</h3>
+          <p>Group fitness classes for flexibility, stress relief and dance-based cardio — open to all members.</p>
+        </div>
+
+        <!-- SERVICE CARD 5: Diet Consultation -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-apple-whole"></i></div>
+          <h3>Diet Consultation</h3>
+          <p>In-house nutrition experts to guide your diet plan so your food choices work as hard as you do.</p>
+        </div>
+
+        <!-- SERVICE CARD 6: Contest Prep -->
+        <div class="service-card">
+          <div class="service-icon"><i class="fa-solid fa-trophy"></i></div>
+          <h3>Contest Prep</h3>
+          <p>Specialised coaching for bodybuilding competitions and athletic performance enhancement programs.</p>
+        </div>
+
+      </div><!-- end services-grid -->
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 6 — GALLERY (Photo Grid)
+    ─────────────────────────────────────────────────────────────
+    A grid of 6 gym photos. On hover each photo zooms slightly and
+    shows a red gradient overlay with a caption label.
+
+    Grid layout notes:
+    → "g-tall" class = this item spans 2 rows (tall card on left)
+    → "g-wide" class = this item spans 2 columns (wide card at bottom)
+    → Normal items fill one cell (250px tall)
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Replace ALL src="https://images.unsplash.com/..." URLs with
+      the gym's REAL photos. Just put the photo file in this folder
+      (e.g. gym1.jpg) and change src="gym1.jpg"
+    → Change the overlay label text inside each <span>
+    → Change alt="..." text to describe what each photo shows
+    → Add more items: copy a <div class="gallery-item"> block
+  ============================================================ -->
+  <section class="gallery section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Inside NuStep</p>
+        <h2 class="section-title">Our <span class="accent">Facility</span></h2>
+        <p class="section-sub">A look inside the gym that's transforming Jalandhar</p>
+      </div>
+
+      <div class="gallery-grid">
+
+        <!-- PHOTO 1: Tall (left column, spans 2 rows) -->
+        <!-- REPLACE src with real photo. Keep class="g-tall" for tall layout -->
+        <div class="gallery-item g-tall">
+          <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=700&q=80" alt="Gym floor" />
+          <!-- Overlay text shown on hover -->
+          <div class="gallery-overlay"><span>Main Gym Floor</span></div>
+        </div>
+
+        <!-- PHOTO 2: Normal -->
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=500&q=80" alt="Weight area" />
+          <div class="gallery-overlay"><span>Free Weights Area</span></div>
+        </div>
+
+        <!-- PHOTO 3: Normal -->
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=500&q=80" alt="Cardio zone" />
+          <div class="gallery-overlay"><span>Cardio Zone</span></div>
+        </div>
+
+        <!-- PHOTO 4: Normal -->
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=500&q=80" alt="Training session" />
+          <div class="gallery-overlay"><span>Personal Training</span></div>
+        </div>
+
+        <!-- PHOTO 5: Wide (spans 2 columns) — keep class="g-wide" -->
+        <div class="gallery-item g-wide">
+          <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80" alt="Strength training" />
+          <div class="gallery-overlay"><span>Strength Zone</span></div>
+        </div>
+
+        <!-- PHOTO 6: Normal -->
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1520877880798-5ee004e3f11e?w=500&q=80" alt="Yoga class" />
+          <div class="gallery-overlay"><span>Yoga Studio</span></div>
+        </div>
+
+      </div><!-- end gallery-grid -->
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 7 — HEALTH CALCULATORS
+    ─────────────────────────────────────────────────────────────
+    Three calculators in a tabbed interface:
+    • Tab 1 — BMI Calculator  (body mass index)
+    • Tab 2 — Calorie Calculator  (daily calorie needs)
+    • Tab 3 — Macro Calculator  (protein/carb/fat split)
+
+    Clicking a tab shows that panel, hides the others.
+    All calculation logic is in script.js.
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Section heading and subtitle text only
+    → The calculator inputs and logic are best left as-is
+    → If you want to remove a tab: delete its <button class="calc-tab">
+      AND its matching <div class="calc-panel" id="tab-..."> block
+  ============================================================ -->
+  <section class="bmi-section section bg-dark" id="bmi">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Health Tools</p>
+        <h2 class="section-title">BMI & Calorie <span class="accent">Calculator</span></h2>
+        <p class="section-sub">Know your numbers — because fitness starts with awareness</p>
+      </div>
+
+      <!-- CALCULATOR CONTAINER BOX -->
+      <div class="calculator-wrapper">
+
+        <!-- TAB BUTTONS — clicking switches which panel is visible
+             data-tab="bmi" matches id="tab-bmi" in the panels below -->
+        <div class="calc-tabs">
+          <button class="calc-tab active" data-tab="bmi">BMI Calculator</button>
+          <button class="calc-tab" data-tab="calorie">Calorie Calculator</button>
+          <button class="calc-tab" data-tab="macro">Macro Calculator</button>
+        </div>
+
+
+        <!-- ── TAB PANEL 1: BMI Calculator ── -->
+        <!-- "active" class = visible by default. Removed by JS when other tab clicked -->
+        <div class="calc-panel active" id="tab-bmi">
+          <div class="calc-grid"><!-- Two columns: inputs left, results right -->
+
+            <!-- LEFT: Input fields -->
+            <div class="calc-inputs">
+
+              <!-- METRIC / IMPERIAL toggle buttons -->
+              <!-- onclick="setUnit('metric')" calls the JS function in script.js -->
+              <div class="unit-toggle">
+                <button class="unit-btn active" id="metricBtn" onclick="setUnit('metric')">Metric (cm/kg)</button>
+                <button class="unit-btn" id="imperialBtn" onclick="setUnit('imperial')">Imperial (ft/lbs)</button>
+              </div>
+
+              <!-- HEIGHT input for Metric (shown by default) -->
+              <div class="form-group" id="heightMetric">
+                <label>Height (cm)</label>
+                <input type="number" id="heightCm" placeholder="e.g. 175" min="50" max="250" />
+              </div>
+
+              <!-- HEIGHT inputs for Imperial (hidden by default, shown by JS) -->
+              <div class="form-row" id="heightImperial" style="display:none">
+                <div class="form-group">
+                  <label>Feet</label>
+                  <input type="number" id="heightFt" placeholder="5" min="1" max="8" />
+                </div>
+                <div class="form-group">
+                  <label>Inches</label>
+                  <input type="number" id="heightIn" placeholder="9" min="0" max="11" />
+                </div>
+              </div>
+
+              <!-- WEIGHT input — label unit (kg/lbs) changes with unit toggle -->
+              <div class="form-group">
+                <label>Weight (<span id="weightUnit">kg</span>)</label>
+                <input type="number" id="bmiWeight" placeholder="e.g. 70" min="1" max="500" />
+              </div>
+
+              <!-- AGE input -->
+              <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="bmiAge" placeholder="e.g. 25" min="5" max="100" />
+              </div>
+
+              <!-- GENDER dropdown -->
+              <div class="form-group">
+                <label>Gender</label>
+                <select id="bmiGender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+
+              <!-- CALCULATE button — calls calculateBMI() in script.js -->
+              <button class="btn btn-primary calc-btn" onclick="calculateBMI()">Calculate BMI</button>
+            </div>
+
+            <!-- RIGHT: Results appear here after clicking Calculate
+                 JS replaces the placeholder content with actual result -->
+            <div class="calc-result" id="bmiResult">
+              <div class="result-placeholder">
+                <i class="fa-solid fa-calculator"></i>
+                <p>Enter your details and click Calculate</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- BMI COLOUR SCALE BAR (Underweight → Obese) shown below the inputs
+               A small arrow pointer moves to the user's position on the bar -->
+          <div class="bmi-scale">
+            <div class="scale-bar">
+              <div class="scale-segment underweight">Underweight<br/>&lt;18.5</div>
+              <div class="scale-segment normal">Normal<br/>18.5–24.9</div>
+              <div class="scale-segment overweight">Overweight<br/>25–29.9</div>
+              <div class="scale-segment obese">Obese<br/>≥30</div>
+            </div>
+            <!-- Pointer arrow — hidden until user calculates. JS moves its position -->
+            <div class="scale-pointer" id="scalePointer" style="display:none"></div>
+          </div>
+        </div><!-- end tab-bmi -->
+
+
+        <!-- ── TAB PANEL 2: Calorie Calculator ── -->
+        <div class="calc-panel" id="tab-calorie">
+          <div class="calc-grid">
+            <div class="calc-inputs">
+
+              <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="calAge" placeholder="e.g. 25" min="5" max="100" />
+              </div>
+
+              <div class="form-group">
+                <label>Gender</label>
+                <select id="calGender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Height (cm)</label>
+                <input type="number" id="calHeight" placeholder="e.g. 175" />
+              </div>
+
+              <div class="form-group">
+                <label>Weight (kg)</label>
+                <input type="number" id="calWeight" placeholder="e.g. 70" />
+              </div>
+
+              <!-- Activity multiplier — value= numbers are used in the formula in script.js
+                   1.2 = sedentary, 1.9 = very athletic. Do NOT change these values -->
+              <div class="form-group">
+                <label>Activity Level</label>
+                <select id="calActivity">
+                  <option value="1.2">Sedentary (office job, no exercise)</option>
+                  <option value="1.375">Lightly active (1–3 days/week)</option>
+                  <option value="1.55" selected>Moderately active (3–5 days/week)</option>
+                  <option value="1.725">Very active (6–7 days/week)</option>
+                  <option value="1.9">Super active (athlete, physical job)</option>
+                </select>
+              </div>
+
+              <!-- Goal adjusts final calorie number in script.js:
+                   -500 = deficit for weight loss, 0 = maintain, +500 = surplus for muscle gain -->
+              <div class="form-group">
+                <label>Goal</label>
+                <select id="calGoal">
+                  <option value="-500">Lose Weight (500 kcal deficit)</option>
+                  <option value="0" selected>Maintain Weight</option>
+                  <option value="500">Gain Muscle (500 kcal surplus)</option>
+                </select>
+              </div>
+
+              <button class="btn btn-primary calc-btn" onclick="calculateCalories()">Calculate Calories</button>
+            </div>
+
+            <!-- Results box — JS fills this after calculation -->
+            <div class="calc-result" id="calResult">
+              <div class="result-placeholder">
+                <i class="fa-solid fa-fire"></i>
+                <p>Enter your details and click Calculate</p>
+              </div>
+            </div>
+          </div>
+        </div><!-- end tab-calorie -->
+
+
+        <!-- ── TAB PANEL 3: Macro Calculator ── -->
+        <div class="calc-panel" id="tab-macro">
+          <div class="calc-grid">
+            <div class="calc-inputs">
+
+              <!-- User enters their daily calorie target (or it auto-fills from calorie tab) -->
+              <div class="form-group">
+                <label>Daily Calories (kcal)</label>
+                <input type="number" id="macroCalories" placeholder="e.g. 2000" />
+              </div>
+
+              <!-- Goal changes the protein/carb/fat % split in script.js -->
+              <div class="form-group">
+                <label>Goal</label>
+                <select id="macroGoal">
+                  <option value="loss">Fat Loss (High Protein)</option>
+                  <option value="maintain">Maintenance (Balanced)</option>
+                  <option value="bulk">Muscle Gain (High Carb)</option>
+                </select>
+              </div>
+
+              <!-- Body weight used to calculate exact protein grams (e.g. 2.4g per kg) -->
+              <div class="form-group">
+                <label>Body Weight (kg)</label>
+                <input type="number" id="macroWeight" placeholder="e.g. 70" />
+              </div>
+
+              <button class="btn btn-primary calc-btn" onclick="calculateMacros()">Calculate Macros</button>
+            </div>
+
+            <!-- Results box — JS fills with protein/carb/fat boxes -->
+            <div class="calc-result" id="macroResult">
+              <div class="result-placeholder">
+                <i class="fa-solid fa-chart-pie"></i>
+                <p>Enter your details and click Calculate</p>
+              </div>
+            </div>
+          </div>
+        </div><!-- end tab-macro -->
+
+      </div><!-- end calculator-wrapper -->
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 8 — PRICING (Membership Plans)
+    ─────────────────────────────────────────────────────────────
+    3 membership plan cards side by side.
+    The middle card has class="featured" which makes it stand out:
+    red border, slight scale-up, "Most Popular" badge.
+
+    THINGS YOU WILL WANT TO CHANGE — THIS IS THE MAIN SECTION TO EDIT:
+    → Plan names (Starter / Pro / Elite) — change to real plan names
+    → Prices: "799", "1,499", "2,999" — UPDATE to real prices
+    → Plan descriptions ("Perfect for beginners" etc.)
+    → Feature lists: add/remove <li> items
+      - <li> with fa-check = INCLUDED feature (shows red ✓)
+      - <li class="disabled"> with fa-xmark = NOT included (shows grey ✗)
+    → "Most Popular" badge text on the middle card
+    → Footnote text at the bottom (annual discount, student discount)
+
+    TO ADD A 4TH PLAN: copy a full <div class="pricing-card"> block,
+    paste it, and update the content. Then change the CSS grid to
+    repeat(4, 1fr) in style.css → .pricing-grid
+  ============================================================ -->
+  <section class="pricing section" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Membership Plans</p>
+        <h2 class="section-title">Simple, Transparent <span class="accent">Pricing</span></h2>
+        <!-- CHANGE this subtitle to match the gym's actual policy -->
+        <p class="section-sub">No hidden charges. No contracts. Just results.</p>
+      </div>
+
+      <div class="pricing-grid">
+
+        <!-- ── PLAN 1: Starter (left card) ── -->
+        <div class="pricing-card">
+          <!-- Plan name label (small red text above price) -->
+          <div class="plan-tag">Starter</div>
+
+          <!-- PRICE — change "799" to real price. ₹ is the Rupee symbol -->
+          <div class="plan-price">
+            <span class="currency">₹</span>799<span class="duration">/month</span>
+          </div>
+
+          <!-- Short description line -->
+          <p class="plan-desc">Perfect for beginners</p>
+
+          <!-- FEATURES LIST
+               fa-check = included (red tick)  |  fa-xmark = not included (grey cross)
+               "disabled" class fades out the not-included items -->
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> Gym floor access</li>
+            <li><i class="fa-solid fa-check"></i> Cardio machines</li>
+            <li><i class="fa-solid fa-check"></i> Locker room access</li>
+            <li><i class="fa-solid fa-check"></i> 1 Group class/week</li>
+            <li class="disabled"><i class="fa-solid fa-xmark"></i> Personal trainer</li>
+            <li class="disabled"><i class="fa-solid fa-xmark"></i> Diet consultation</li>
+          </ul>
+
+          <!-- Button — btn-outline = transparent/bordered button style -->
+          <a href="#contact" class="btn btn-outline plan-btn">Choose Plan</a>
+        </div>
+
+
+        <!-- ── PLAN 2: Pro (middle card — FEATURED/HIGHLIGHTED) ── -->
+        <!-- "featured" class = red border + scale up + glow effect -->
+        <div class="pricing-card featured">
+          <!-- Badge that floats above the card at the top -->
+          <div class="popular-badge">Most Popular</div>
+
+          <div class="plan-tag">Pro</div>
+
+          <!-- CHANGE "1,499" to real Pro plan price -->
+          <div class="plan-price">
+            <span class="currency">₹</span>1,499<span class="duration">/month</span>
+          </div>
+
+          <p class="plan-desc">For serious fitness goals</p>
+
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> All Starter benefits</li>
+            <li><i class="fa-solid fa-check"></i> Unlimited group classes</li>
+            <!-- "4 PT sessions" = 4 Personal Training sessions. Change to real number -->
+            <li><i class="fa-solid fa-check"></i> 4 PT sessions/month</li>
+            <li><i class="fa-solid fa-check"></i> Diet consultation</li>
+            <li><i class="fa-solid fa-check"></i> Body composition analysis</li>
+            <li class="disabled"><i class="fa-solid fa-xmark"></i> Contest prep coaching</li>
+          </ul>
+
+          <!-- btn-primary = solid red button (stands out on featured card) -->
+          <a href="#contact" class="btn btn-primary plan-btn">Choose Plan</a>
+        </div>
+
+
+        <!-- ── PLAN 3: Elite (right card) ── -->
+        <div class="pricing-card">
+          <div class="plan-tag">Elite</div>
+
+          <!-- CHANGE "2,999" to real Elite plan price -->
+          <div class="plan-price">
+            <span class="currency">₹</span>2,999<span class="duration">/month</span>
+          </div>
+
+          <p class="plan-desc">Ultimate transformation</p>
+
+          <ul class="plan-features">
+            <li><i class="fa-solid fa-check"></i> All Pro benefits</li>
+            <li><i class="fa-solid fa-check"></i> Unlimited PT sessions</li>
+            <li><i class="fa-solid fa-check"></i> Weekly diet review</li>
+            <li><i class="fa-solid fa-check"></i> Supplement guidance</li>
+            <li><i class="fa-solid fa-check"></i> Contest prep coaching</li>
+            <li><i class="fa-solid fa-check"></i> 24/7 trainer support</li>
+          </ul>
+
+          <a href="#contact" class="btn btn-outline plan-btn">Choose Plan</a>
+        </div>
+
+      </div><!-- end pricing-grid -->
+
+      <!-- Fine print below the cards — CHANGE this to match real offers -->
+      <p class="pricing-note">* Annual membership available at 20% discount. Student discounts available on request.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 9 — TESTIMONIALS (Success Stories)
+    ─────────────────────────────────────────────────────────────
+    3 review cards. Each has stars, a quote, and the person's
+    photo + name + result achieved.
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Replace with REAL member testimonials once you have them
+    → Photo: currently using random placeholder faces from randomuser.me
+      Replace src="https://randomuser.me/..." with a real member photo
+      or remove the <img> entirely if no photo available
+    → Star rating: 5 x <i class="fa-solid fa-star"> = 5 stars.
+      For 4 stars, change the last one to fa-regular fa-star
+    → Quote text inside <p class="testi-text">
+    → Member name in <strong>
+    → Achievement text in <span> (e.g. "Lost 18 kg")
+  ============================================================ -->
+  <section class="testimonials section bg-dark">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Success Stories</p>
+        <h2 class="section-title">Real People, <span class="accent">Real Results</span></h2>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <!-- TESTIMONIAL 1 -->
+        <div class="testi-card">
+          <!-- 5 star icons — change to fewer for lower rating -->
+          <div class="testi-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <!-- The quote — REPLACE with real member quote -->
+          <p class="testi-text">"Lost 18 kg in 4 months with the guidance of NuStep trainers. The diet plan + workout combo was a game changer. Best gym in Jalandhar by far!"</p>
+          <div class="testi-author">
+            <!-- REPLACE this placeholder photo with real member photo -->
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Manpreet Singh" />
+            <div>
+              <strong>Manpreet Singh</strong>   <!-- Member name -->
+              <span>Lost 18 kg</span>            <!-- Achievement label -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TESTIMONIAL 2 -->
+        <div class="testi-card">
+          <div class="testi-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testi-text">"The environment here is incredibly motivating. Trainers actually care about your progress. I've gained 7 kg of muscle in 3 months — amazing!"</p>
+          <div class="testi-author">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Harleen Kaur" />
+            <div>
+              <strong>Harleen Kaur</strong>
+              <span>Gained 7 kg muscle</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TESTIMONIAL 3 -->
+        <div class="testi-card">
+          <div class="testi-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testi-text">"As a diabetic I was skeptical, but the trainers designed a safe program for me. My sugar levels improved and I feel 10 years younger. Highly recommend!"</p>
+          <div class="testi-author">
+            <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Rajesh Kumar" />
+            <div>
+              <strong>Rajesh Kumar</strong>
+              <span>Health transformed</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end testimonials-grid -->
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 10 — CONTACT
+    ─────────────────────────────────────────────────────────────
+    Two columns: Left = contact info + map. Right = enquiry form.
+
+    THINGS YOU WILL WANT TO CHANGE:
+    LEFT SIDE:
+    → Address text
+    → Working hours (Mon–Sat timings, Sunday timings)
+    → Phone number — appears in 3 places:
+        href="tel:+91XXXXXXXXXX"  (the clickable link)
+        +91 XXXXX XXXXX           (the visible text)
+    → WhatsApp link — change 919876543210 to real number with country code
+    → Social links — replace href="#" with real Instagram/Facebook/YouTube URLs
+    → MAP EMBED — see comment below on how to get the correct embed URL
+
+    RIGHT SIDE (Contact Form):
+    → Form title "Book a Free Trial Session"
+    → Dropdown options in "Interested In" — change to match real services
+    → The form currently shows a success message on submit.
+      To make it ACTUALLY SEND messages (email/WhatsApp), you'll
+      need to connect it to a backend or a form service like
+      Formspree, EmailJS, or Netlify Forms.
+
+    MAP EMBED INSTRUCTIONS:
+    1. Go to maps.google.com
+    2. Search for the gym
+    3. Click Share → Embed a map
+    4. Copy the src="..." URL from the iframe code
+    5. Paste it to replace the src="..." below
+  ============================================================ -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Get In Touch</p>
+        <h2 class="section-title">Visit Us or <span class="accent">Send a Message</span></h2>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- LEFT COLUMN: Contact Info + Map -->
+        <div class="contact-info">
+
+          <!-- INFO CARD: Address -->
+          <div class="info-card">
+            <i class="fa-solid fa-location-dot accent"></i>
+            <div>
+              <strong>Address</strong>
+              <!-- CHANGE to real address -->
+              <p>NuStep Fitness Gym, Jalandhar, Punjab, India</p>
+            </div>
+          </div>
+
+          <!-- INFO CARD: Working Hours — CHANGE to real hours -->
+          <div class="info-card">
+            <i class="fa-solid fa-clock accent"></i>
+            <div>
+              <strong>Working Hours</strong>
+              <p>Mon – Sat: 5:00 AM – 10:00 PM<br/>Sunday: 6:00 AM – 8:00 PM</p>
+            </div>
+          </div>
+
+          <!-- INFO CARD: Phone — CHANGE number in both href and visible text -->
+          <div class="info-card">
+            <i class="fa-solid fa-phone accent"></i>
+            <div>
+              <strong>Call Us</strong>
+              <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+            </div>
+          </div>
+
+          <!-- INFO CARD: WhatsApp — CHANGE 919876543210 to real number (no spaces, with 91 prefix) -->
+          <div class="info-card">
+            <i class="fa-brands fa-whatsapp accent"></i>
+            <div>
+              <strong>WhatsApp</strong>
+              <p><a href="https://wa.me/919876543210">Chat with us on WhatsApp</a></p>
+            </div>
+          </div>
+
+          <!-- SOCIAL MEDIA ICONS — CHANGE href="#" to real profile URLs -->
+          <div class="social-links">
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+
+          <!-- GOOGLE MAP EMBED
+               CHANGE the src="..." to the real embed URL from Google Maps
+               (see instructions in section comment above) -->
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109388.94497449!2d75.4799!3d31.3260!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a5a5747a4a75d%3A0x75e304bd5c43538!2sJalandhar%2C%20Punjab!5e0!3m2!1sen!2sin!4v1700000000000"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="NuStep Fitness Gym Location">
+            </iframe>
+          </div>
+        </div><!-- end contact-info -->
+
+
+        <!-- RIGHT COLUMN: Enquiry Form -->
+        <div class="contact-form-wrap">
+          <!-- onsubmit="submitForm(event)" calls the JS function in script.js -->
+          <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
+
+            <!-- Form heading — CHANGE if needed -->
+            <h3>Book a Free Trial Session</h3>
+
+            <!-- Name field — required (form won't submit without it) -->
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="formName" placeholder="Your name" required />
+            </div>
+
+            <!-- Phone field — required -->
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" id="formPhone" placeholder="+91 XXXXX XXXXX" required />
+            </div>
+
+            <!-- Email — optional (no "required") -->
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="formEmail" placeholder="your@email.com" />
+            </div>
+
+            <!-- Dropdown — CHANGE options to match the gym's actual services -->
+            <div class="form-group">
+              <label>Interested In</label>
+              <select id="formInterest">
+                <option>Weight Loss</option>
+                <option>Muscle Gain</option>
+                <option>General Fitness</option>
+                <option>Personal Training</option>
+                <option>Yoga / Zumba</option>
+              </select>
+            </div>
+
+            <!-- Optional message textarea -->
+            <div class="form-group">
+              <label>Message</label>
+              <textarea id="formMessage" rows="4" placeholder="Tell us about your fitness goals..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary calc-btn">Send Message</button>
+
+            <!-- SUCCESS MESSAGE shown after submit (hidden by default with style="display:none") -->
+            <div id="formSuccess" class="form-success" style="display:none">
+              <i class="fa-solid fa-circle-check"></i> Thank you! We'll contact you within 24 hours.
+            </div>
+          </form>
+        </div><!-- end contact-form-wrap -->
+
+      </div><!-- end contact-grid -->
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+    SECTION 11 — FOOTER
+    ─────────────────────────────────────────────────────────────
+    4-column layout:
+    Column 1: Logo + tagline text
+    Column 2: Quick nav links
+    Column 3: Tool links (calculators)
+    Column 4: Contact details (phone, location, hours)
+    Bottom bar: copyright line
+
+    THINGS YOU WILL WANT TO CHANGE:
+    → Tagline: "Transforming lives through fitness in Jalandhar since 2019"
+      → Update founding year from 2019 if different
+    → Phone number in column 4
+    → Copyright year "2025" at the bottom
+    → All href="#..." links in Quick Links and Tools columns
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- COLUMN 1: Brand -->
+        <div class="footer-brand">
+          <!-- Same logo style as navbar -->
+          <span class="logo-nu">NU</span><span class="logo-step">STEP</span>
+          <span class="logo-sub">FITNESS GYM</span>
+          <!-- Short tagline — CHANGE year if needed -->
+          <p>Transforming lives through fitness in Jalandhar since 2019. Your health is our mission.</p>
+        </div>
+
+        <!-- COLUMN 2: Quick Links — internal page navigation -->
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 3: Health Tools links -->
+        <div class="footer-links">
+          <h4>Tools</h4>
+          <ul>
+            <li><a href="#bmi">BMI Calculator</a></li>
+            <li><a href="#bmi">Calorie Calculator</a></li>
+            <li><a href="#bmi">Macro Calculator</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 4: Contact details — CHANGE phone, location, hours -->
+        <div class="footer-links">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+            <li><a href="#">Jalandhar, Punjab</a></li>
+            <li><a href="#">Mon–Sat 5AM–10PM</a></li>
+          </ul>
+        </div>
+
+      </div><!-- end footer-grid -->
+
+      <!-- BOTTOM BAR: copyright — CHANGE 2025 to current year -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 NuStep Fitness Gym. All rights reserved. | Jalandhar, Punjab</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Loads our JavaScript file — must be at the end of the body -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,899 @@
+/* ============================================================
+   style.css — NuStep Fitness Gym
+   ============================================================
+   HOW THIS FILE IS ORGANIZED:
+   1.  VARIABLES & RESET       — colours, fonts, base rules
+   2.  BUTTONS                 — red primary & transparent outline
+   3.  SECTION HEADERS         — shared heading/tag/subtitle styles
+   4.  NAVBAR                  — fixed top navigation
+   5.  HERO                    — full-screen opening banner
+   6.  MARQUEE                 — scrolling services ticker
+   7.  ABOUT                   — two-column about section
+   8.  SERVICES                — 3-column service cards
+   9.  GALLERY                 — photo grid with hover overlay
+   10. CALCULATORS             — BMI / Calorie / Macro tabs
+   11. PRICING                 — membership plan cards
+   12. TESTIMONIALS            — review cards
+   13. CONTACT                 — info + form + map
+   14. FOOTER                  — 4-column footer
+   15. ANIMATIONS              — scroll fade-in effect
+   16. RESPONSIVE              — mobile/tablet breakpoints
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIABLES & RESET
+   ─────────────────────────────────────────────────────────────
+   CSS variables (--name) are used everywhere so you only need
+   to change one line here to update the entire colour scheme.
+
+   MAIN COLOURS TO CHANGE:
+   → --red: #e8003d  ← this is the main accent red. Replace with
+     the gym's brand colour if it's not red.
+   → --dark: #0a0a0a ← website background (near-black). Keep dark
+     unless the gym wants a light theme.
+
+   FONTS TO CHANGE:
+   → --font-head: 'Barlow Condensed' — the bold heading font
+   → --font-body: 'Inter' — the body/paragraph font
+     (Must also update the Google Fonts link in index.html)
+============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── Colour Palette ── */
+  --red:        #e8003d;   /* Primary accent — buttons, icons, highlights */
+  --red-dark:   #b8002f;   /* Hover state of red buttons */
+  --red-light:  #ff1a55;   /* Lighter red (currently unused — available if needed) */
+
+  --dark:       #0a0a0a;   /* Page background (deepest black) */
+  --dark-2:     #111111;   /* Alternate section background (slightly lighter) */
+  --dark-3:     #1a1a1a;   /* Card backgrounds */
+  --dark-4:     #222222;   /* Input backgrounds, result boxes */
+
+  --gray:       #888;      /* Muted/secondary text */
+  --gray-light: #ccc;      /* Slightly brighter secondary text */
+  --white:      #ffffff;   /* Primary text colour */
+
+  /* ── Typography ── */
+  --font-head: 'Barlow Condensed', sans-serif;  /* Bold uppercase headings */
+  --font-body: 'Inter', sans-serif;             /* Regular body text */
+
+  /* ── Shared values ── */
+  --transition: 0.3s ease;  /* Standard hover/animation duration */
+  --radius:     8px;        /* Small border-radius (inputs, small cards) */
+  --radius-lg:  16px;       /* Large border-radius (section cards) */
+}
+
+/* Makes page scroll smoothly when clicking nav links */
+html { scroll-behavior: smooth; }
+
+/* Base body styles */
+body {
+  font-family: var(--font-body);
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden; /* Prevents horizontal scroll on mobile */
+  line-height: 1.6;
+}
+
+/* Global resets */
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+ul { list-style: none; }
+
+/* Centered page wrapper — all sections use this */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Default section padding — CHANGE 90px to make sections taller/shorter */
+.section { padding: 90px 0; }
+
+/* Alternate section background (services, BMI, testimonials) */
+.bg-dark { background: var(--dark-2); }
+
+/* Red text utility class — used on icons and highlighted words in headings */
+.accent { color: var(--red); }
+
+
+/* ============================================================
+   2. BUTTONS
+   ─────────────────────────────────────────────────────────────
+   Two button styles used throughout the site:
+   → .btn-primary = solid red background (main CTA)
+   → .btn-outline = transparent with white border (secondary)
+   → .btn-lg = larger padding version for hero section
+
+   TO CHANGE BUTTON COLOUR: update --red variable above.
+   TO CHANGE BUTTON SHAPE: update border-radius (currently 8px).
+============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 2px solid transparent;
+  letter-spacing: 0.5px;
+}
+/* Red filled button */
+.btn-primary { background: var(--red); color: #fff; border-color: var(--red); }
+.btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(232, 0, 61, 0.35); }
+
+/* Transparent bordered button */
+.btn-outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.4); }
+.btn-outline:hover { border-color: var(--red); color: var(--red); transform: translateY(-2px); }
+
+/* Large size variant used in the hero */
+.btn-lg { padding: 16px 36px; font-size: 1rem; }
+
+
+/* ============================================================
+   3. SECTION HEADERS (Shared)
+   ─────────────────────────────────────────────────────────────
+   Every section uses this same 3-part header structure:
+   1. .section-tag  = small red label ("What We Offer")
+   2. .section-title = big bold uppercase heading
+   3. .section-sub  = grey subtitle paragraph
+
+   .section-header wraps them and centres them for grid sections.
+============================================================ */
+.section-tag {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 4vw, 3rem); /* Scales between 2rem and 3rem based on screen width */
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-sub {
+  color: var(--gray);
+  font-size: 1rem;
+  max-width: 540px;
+}
+.section-header { text-align: center; margin-bottom: 56px; }
+.section-header .section-sub { margin: 0 auto; }
+
+
+/* ============================================================
+   4. NAVBAR
+   ─────────────────────────────────────────────────────────────
+   Fixed to the top of the screen at all times.
+   Starts transparent (no background) over the hero image.
+   After scrolling 60px, JS adds class "scrolled" which adds
+   the dark background + blur effect.
+
+   TO CHANGE: navbar height → padding values.
+   TO CHANGE: blur strength → backdrop-filter: blur(12px)
+   TO CHANGE: when it goes dark → script.js → window.scrollY > 60
+============================================================ */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;           /* Always on top of everything */
+  padding: 16px 0;
+  background: transparent; /* Starts see-through over hero */
+  transition: all 0.4s ease;
+}
+/* Class added by JS after scrolling — dark frosted background */
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(12px);
+  padding: 10px 0;          /* Shrinks slightly when scrolled */
+  box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+}
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+/* LOGO — "NU" in red, "STEP" in white, "FITNESS GYM" small grey */
+.logo { display: flex; align-items: baseline; gap: 2px; flex-shrink: 0; }
+.logo-nu   { font-family: var(--font-head); font-size: 1.8rem; font-weight: 900; color: var(--red); }
+.logo-step { font-family: var(--font-head); font-size: 1.8rem; font-weight: 900; color: var(--white); }
+.logo-sub  { font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; color: var(--gray); margin-left: 6px; }
+
+/* Nav links row */
+.nav-links { display: flex; gap: 28px; margin-left: auto; }
+.nav-links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  transition: color var(--transition);
+  position: relative;
+}
+/* Animated red underline that slides in on hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--red);
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a:hover::after { width: 100%; }
+
+/* "Join Now" button in navbar */
+.nav-cta { margin-left: 8px; padding: 10px 22px; font-size: 0.875rem; }
+
+/* ─── HAMBURGER (3-line mobile menu button) ───
+   Hidden on desktop (display:none). Shown on mobile via responsive section.
+   When clicked, JS toggles class "open" which animates the 3 lines into an X */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: auto;
+}
+.hamburger span { display: block; width: 26px; height: 2px; background: var(--white); transition: all var(--transition); border-radius: 2px; }
+/* Animation: top line rotates to /, bottom line rotates to \, middle disappears */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ============================================================
+   5. HERO SECTION
+   ─────────────────────────────────────────────────────────────
+   Full viewport height background image with dark overlay.
+
+   TO CHANGE BACKGROUND PHOTO:
+   → Replace the URL in background: url('https://...') with a
+     local file path like url('images/gym-hero.jpg')
+     or another Unsplash link
+
+   TO CHANGE OVERLAY DARKNESS:
+   → .hero-overlay → background: linear-gradient(...)
+     The numbers like 0.92 = opacity. Higher = darker.
+============================================================ */
+.hero {
+  min-height: 100vh; /* Full screen height */
+  background: url('https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=1600&q=80') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top: 80px; /* Space so content doesn't hide under navbar */
+}
+/* Dark gradient overlay — left side darker, right side slightly see-through */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.7) 60%, rgba(10,10,10,0.4) 100%);
+}
+/* Text content sits above the overlay (z-index: 1) */
+.hero-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Small pill badge above headline */
+.hero-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(232, 0, 61, 0.15);
+  border: 1px solid rgba(232, 0, 61, 0.4);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 24px;
+}
+/* Main hero headline — scales from 3rem on mobile to 6.5rem on large screens */
+.hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+}
+/* Sub-description paragraph */
+.hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.75); margin-bottom: 40px; max-width: 520px; line-height: 1.7; }
+/* Row of two buttons */
+.hero-btns { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 60px; }
+
+/* ─── Stats row (500+ members etc.) ─── */
+.hero-stats { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; }
+.stat-num   { font-family: var(--font-head); font-size: 2.2rem; font-weight: 900; color: var(--red); line-height: 1; }
+.stat-label { font-size: 0.8rem; color: var(--gray); font-weight: 500; margin-top: 4px; }
+.stat-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.15); } /* Thin vertical line between stats */
+
+
+/* ============================================================
+   6. MARQUEE (Scrolling Ticker)
+   ─────────────────────────────────────────────────────────────
+   Red bar with text scrolling from right to left infinitely.
+   The text is duplicated in HTML so the loop is seamless.
+
+   TO CHANGE SCROLL SPEED: animation: marquee 25s
+   → Lower number = faster. Higher = slower.
+   TO CHANGE BACKGROUND: background: var(--red)
+============================================================ */
+.marquee-bar { background: var(--red); padding: 14px 0; overflow: hidden; white-space: nowrap; }
+.marquee-track {
+  display: inline-flex;
+  gap: 40px;
+  animation: marquee 25s linear infinite; /* 25s = speed. Lower = faster */
+}
+.marquee-track span { font-family: var(--font-head); font-weight: 700; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
+.marquee-track .dot { font-size: 0.5rem; opacity: 0.7; }
+/* Keyframe: moves left by exactly 50% (since content is duplicated) */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+
+/* ============================================================
+   7. ABOUT SECTION
+   ─────────────────────────────────────────────────────────────
+   Two equal columns: photos left, text right.
+   The image area uses position:relative so the small overlay photo
+   and red badge can be positioned absolutely on top of it.
+============================================================ */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.about-images { position: relative; } /* Needed so absolute children position correctly */
+
+/* Main large photo */
+.about-img-main { width: 100%; height: 500px; object-fit: cover; border-radius: var(--radius-lg); }
+
+/* Small overlapping photo (bottom-right corner) */
+.about-img-sm {
+  position: absolute;
+  bottom: -30px; right: -30px;
+  width: 200px; height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 4px solid var(--dark); /* Dark border creates visual separation from main photo */
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+/* Red badge (top-left corner) — shows years/experience */
+.about-badge {
+  position: absolute;
+  top: 30px; left: -20px;
+  background: var(--red);
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  display: flex; flex-direction: column; align-items: center;
+  box-shadow: 0 10px 30px rgba(232,0,61,0.4);
+}
+.badge-num { font-family: var(--font-head); font-size: 2.2rem; font-weight: 900; line-height: 1; }
+.badge-txt { font-size: 0.75rem; font-weight: 600; text-align: center; opacity: 0.9; }
+
+/* Text content on right side */
+.about-content .section-tag { display: block; }
+.about-desc { color: var(--gray-light); margin-bottom: 28px; font-size: 0.975rem; line-height: 1.8; }
+.about-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+.about-list li { display: flex; align-items: center; gap: 12px; font-size: 0.925rem; color: var(--gray-light); }
+.about-list .fa-check { font-size: 0.75rem; }
+
+
+/* ============================================================
+   8. SERVICES SECTION
+   ─────────────────────────────────────────────────────────────
+   3-column grid of cards. On hover:
+   → Card lifts up (translateY(-6px))
+   → Red bar slides in at top (::before pseudo-element)
+   → Icon background fills solid red
+
+   TO ADD MORE CARDS: just add more HTML — grid auto-wraps.
+   TO CHANGE COLUMNS: repeat(3, 1fr) → e.g. repeat(2, 1fr)
+============================================================ */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.service-card {
+  background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  transition: all var(--transition);
+  position: relative; /* Needed for the ::before pseudo-element */
+  overflow: hidden;
+}
+/* Invisible red bar at top — slides in from left on hover */
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--red);
+  transform: scaleX(0);         /* Hidden by default */
+  transition: transform var(--transition);
+}
+.service-card:hover { border-color: rgba(232, 0, 61, 0.3); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+.service-card:hover::before { transform: scaleX(1); } /* Reveals red bar */
+
+/* Icon box */
+.service-icon {
+  width: 58px; height: 58px;
+  background: rgba(232, 0, 61, 0.1); /* Light red tint (default) */
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+  font-size: 1.4rem; color: var(--red);
+  transition: all var(--transition);
+}
+.service-card:hover .service-icon { background: var(--red); color: #fff; } /* Solid red on hover */
+
+.service-card h3 { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px; }
+.service-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.7; }
+
+
+/* ============================================================
+   9. GALLERY SECTION
+   ─────────────────────────────────────────────────────────────
+   CSS Grid layout with special sizing classes:
+   → .g-tall  = first item spans 2 rows (tall portrait card)
+   → .g-wide  = spans 2 columns (wide landscape card)
+   → default  = 1×1 cell
+
+   On hover: photo zooms in (scale 1.05), red gradient overlay appears.
+
+   TO ADD MORE PHOTOS: add another <div class="gallery-item"> in HTML.
+   TO CHANGE PHOTO SIZE: edit height values on .gallery-item img
+============================================================ */
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; gap: 16px; }
+
+.gallery-item {
+  position: relative; /* Needed so overlay sits on top of photo */
+  overflow: hidden;   /* Clips the zoomed photo inside rounded corners */
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+}
+.gallery-item img { width: 100%; height: 250px; object-fit: cover; transition: transform 0.5s ease; }
+.g-tall img  { height: 516px; }  /* Tall first photo (spans 2 rows worth of height) */
+.g-wide { grid-column: span 2; } /* Wide photo (spans 2 columns) */
+.g-wide img  { height: 250px; }
+
+/* Hover overlay — gradient from red at bottom to transparent at top */
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(232,0,61,0.8) 0%, transparent 60%);
+  display: flex; align-items: flex-end; padding: 20px;
+  opacity: 0;                        /* Hidden by default */
+  transition: opacity var(--transition);
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }       /* Show overlay */
+.gallery-item:hover img { transform: scale(1.05); }         /* Zoom photo */
+.gallery-overlay span { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+
+
+/* ============================================================
+   10. CALCULATORS (BMI / Calorie / Macro)
+   ─────────────────────────────────────────────────────────────
+   Tab interface: clicking .calc-tab shows its matching .calc-panel.
+   Each panel has a 2-column grid: inputs (left) and results (right).
+
+   .calc-tab.active  = highlighted tab (red underline)
+   .calc-panel.active = visible panel (display:block)
+   Inactive panels = display:none
+
+   The result boxes (.calc-result) start with placeholder text.
+   JS replaces the placeholder HTML with actual results after calculation.
+============================================================ */
+/* Outer container box */
+.calculator-wrapper { max-width: 900px; margin: 0 auto; background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); overflow: hidden; }
+
+/* ─── Tab buttons row ─── */
+.calc-tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.calc-tab {
+  flex: 1;              /* Each tab takes equal width */
+  padding: 18px;
+  background: none; border: none;
+  color: var(--gray);
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border-bottom: 3px solid transparent; /* Space for the active underline */
+}
+.calc-tab:hover { color: #fff; background: rgba(255,255,255,0.04); }
+/* Active tab: red text + red underline + slight red background tint */
+.calc-tab.active { color: var(--red); border-bottom-color: var(--red); background: rgba(232,0,61,0.06); }
+
+/* ─── Panel (content area below tabs) ─── */
+.calc-panel { display: none; padding: 36px; }    /* Hidden by default */
+.calc-panel.active { display: block; }            /* Shown when tab is active */
+
+/* Two-column layout inside each panel */
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+
+/* ─── Metric/Imperial toggle buttons ─── */
+.unit-toggle { display: flex; gap: 8px; margin-bottom: 24px; }
+.unit-btn {
+  flex: 1; padding: 10px;
+  background: var(--dark-4); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--gray); font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  border-radius: var(--radius); cursor: pointer; transition: all var(--transition);
+}
+.unit-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+/* ─── Form fields (shared by all forms on the page) ─── */
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--gray);
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+/* Input and select styling */
+.form-group input,
+.form-group select {
+  width: 100%; padding: 12px 16px;
+  background: var(--dark-4);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  color: #fff;
+  font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color var(--transition);
+  appearance: auto;
+}
+/* Red border glow when field is clicked/focused */
+.form-group input:focus,
+.form-group select:focus { outline: none; border-color: var(--red); }
+.form-group select option { background: var(--dark-3); }
+
+/* Textarea (message field in contact form) */
+.form-group textarea {
+  width: 100%; padding: 12px 16px;
+  background: var(--dark-4);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius); color: #fff;
+  font-family: var(--font-body); font-size: 0.95rem;
+  resize: vertical; /* User can drag to resize height only */
+  transition: border-color var(--transition);
+}
+.form-group textarea:focus { outline: none; border-color: var(--red); }
+
+/* Two side-by-side inputs (used for Feet + Inches in imperial height) */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Full-width centered calculate button */
+.calc-btn { width: 100%; justify-content: center; margin-top: 8px; }
+
+/* ─── Result box (right column) ─── */
+.calc-result {
+  background: var(--dark-4);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-lg);
+  min-height: 340px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 28px;
+}
+/* Placeholder state (before user calculates) */
+.result-placeholder { text-align: center; color: var(--gray); }
+.result-placeholder i { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4; }
+.result-placeholder p { font-size: 0.9rem; }
+
+/* ─── BMI result display ─── */
+.bmi-value { font-family: var(--font-head); font-size: 5rem; font-weight: 900; line-height: 1; text-align: center; }
+.bmi-category { font-family: var(--font-head); font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin: 8px 0 24px; }
+.bmi-tips { text-align: left; width: 100%; }
+.bmi-tip { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.85rem; color: var(--gray-light); line-height: 1.5; }
+.bmi-tip i { color: var(--red); margin-top: 2px; flex-shrink: 0; }
+
+/* ─── BMI Colour Scale Bar ─── */
+.bmi-scale { margin-top: 32px; padding: 0 36px 36px; position: relative; }
+.scale-bar { display: flex; border-radius: 50px; overflow: hidden; height: 40px; }
+.scale-segment { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; text-align: center; line-height: 1.3; text-transform: uppercase; letter-spacing: 0.5px; }
+/* Each segment has its own colour */
+.underweight { background: #3b82f6; }  /* Blue */
+.normal      { background: #22c55e; }  /* Green */
+.overweight  { background: #f59e0b; }  /* Amber */
+.obese       { background: #ef4444; }  /* Red */
+
+/* Arrow pointer that JS moves to the user's BMI position */
+.scale-pointer { position: relative; height: 16px; margin-top: 6px; }
+.scale-pointer::before { content: '▲'; position: absolute; font-size: 1rem; color: #fff; transform: translateX(-50%); }
+.scale-pointer::after { content: attr(data-label); position: absolute; top: 20px; left: var(--pos, 50%); transform: translateX(-50%); font-size: 0.8rem; font-weight: 700; color: #fff; white-space: nowrap; }
+
+/* ─── Result info cards (used in Calorie + Macro results) ─── */
+.result-card {
+  background: var(--dark-4); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-left: 3px solid var(--red); /* Red left accent stripe */
+  width: 100%;
+}
+.result-card .rc-label { font-size: 0.82rem; color: var(--gray); font-weight: 500; }
+.result-card .rc-value { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: #fff; }
+
+/* ─── Macro result: Protein/Carb/Fat boxes ─── */
+.macro-ring-wrapper { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; width: 100%; }
+.macro-ring { text-align: center; padding: 16px 20px; border-radius: var(--radius); background: var(--dark); min-width: 90px; }
+.macro-ring .mr-val { font-family: var(--font-head); font-size: 1.6rem; font-weight: 900; }
+.macro-ring .mr-label { font-size: 0.72rem; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+/* Top border colour for each macro */
+.mr-protein { border-top: 3px solid #3b82f6; }  /* Blue = protein */
+.mr-carb    { border-top: 3px solid #f59e0b; }  /* Amber = carbs */
+.mr-fat     { border-top: 3px solid #ef4444; }  /* Red = fat */
+
+
+/* ============================================================
+   11. PRICING SECTION
+   ─────────────────────────────────────────────────────────────
+   3 equal cards. The middle card uses class="featured" which:
+   → Adds a red border
+   → Scales it up slightly (scale 1.04) to make it stand out
+   → Adds a red glow shadow
+   → Shows "Most Popular" badge floating above the card
+
+   TO CHANGE THE FEATURED CARD: move class="featured" to a
+   different card (e.g. the first or third one).
+
+   .disabled class on feature list items = faded-out "not included"
+============================================================ */
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
+
+.pricing-card {
+  background: var(--dark-3);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg); padding: 36px 28px;
+  position: relative; transition: all var(--transition);
+}
+.pricing-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+
+/* Featured (middle) card */
+.pricing-card.featured {
+  background: var(--dark-2);
+  border-color: var(--red);          /* Red border */
+  transform: scale(1.04);            /* Slightly bigger */
+  box-shadow: 0 0 60px rgba(232,0,61,0.2); /* Red glow */
+}
+.pricing-card.featured:hover { transform: scale(1.04) translateY(-6px); }
+
+/* Plan name label (small red text) */
+.plan-tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--red); margin-bottom: 16px; }
+
+/* "Most Popular" floating badge above featured card */
+.popular-badge {
+  position: absolute;
+  top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--red); color: #fff;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 50px; white-space: nowrap;
+}
+/* Price display */
+.plan-price { font-family: var(--font-head); font-size: 3rem; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+.currency { font-size: 1.8rem; vertical-align: top; margin-top: 6px; display: inline-block; }
+.duration { font-size: 1rem; font-weight: 400; color: var(--gray); }
+.plan-desc { font-size: 0.875rem; color: var(--gray); margin-bottom: 28px; }
+
+/* Feature list */
+.plan-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.plan-features li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--gray-light); }
+.plan-features li.disabled { opacity: 0.4; }        /* Faded = not included */
+.plan-features .fa-check { color: var(--red); font-size: 0.8rem; }  /* Red tick */
+.plan-features .fa-xmark { color: var(--gray); font-size: 0.8rem; } /* Grey cross */
+
+.plan-btn { width: 100%; justify-content: center; }
+
+/* Footnote below all cards */
+.pricing-note { text-align: center; margin-top: 32px; color: var(--gray); font-size: 0.85rem; }
+
+
+/* ============================================================
+   12. TESTIMONIALS
+   ─────────────────────────────────────────────────────────────
+   3 review cards in a row. Each card slightly lifts and gets
+   a red border tint on hover.
+============================================================ */
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.testi-card {
+  background: var(--dark-3); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-lg); padding: 32px 28px; transition: all var(--transition);
+}
+.testi-card:hover { border-color: rgba(232,0,61,0.3); transform: translateY(-4px); }
+
+.testi-stars { color: #f59e0b; margin-bottom: 16px; font-size: 0.9rem; } /* Amber/gold star colour */
+.testi-text { color: var(--gray-light); font-size: 0.9rem; line-height: 1.7; margin-bottom: 24px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 14px; }
+.testi-author img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.testi-author strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
+.testi-author span { font-size: 0.78rem; color: var(--red); font-weight: 600; } /* Achievement text in red */
+
+
+/* ============================================================
+   13. CONTACT SECTION
+   ─────────────────────────────────────────────────────────────
+   Two-column layout:
+   Left: 4 info cards + social icons + embedded map
+   Right: enquiry/booking form
+
+   .info-card = each row with an icon and text
+   .form-success = green success banner shown after form submit
+============================================================ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+
+/* Each contact detail row (address, hours, phone, WhatsApp) */
+.info-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.info-card i { font-size: 1.3rem; margin-top: 4px; flex-shrink: 0; }
+.info-card strong { display: block; margin-bottom: 4px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--white); }
+.info-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+.info-card a { color: var(--gray); transition: color var(--transition); }
+.info-card a:hover { color: var(--red); }
+
+/* Social media icon buttons row */
+.social-links { display: flex; gap: 14px; padding: 24px 0; }
+.social-links a {
+  width: 42px; height: 42px;
+  background: var(--dark-3); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray); font-size: 1rem; transition: all var(--transition);
+}
+.social-links a:hover { background: var(--red); border-color: var(--red); color: #fff; transform: translateY(-3px); }
+
+/* Google Maps iframe container */
+.map-container { border-radius: var(--radius-lg); overflow: hidden; margin-top: 8px; border: 1px solid rgba(255,255,255,0.08); }
+.map-container iframe { width: 100%; height: 200px; display: block; }
+
+/* Contact form card */
+.contact-form-wrap { position: relative; }
+.contact-form { background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: 40px 36px; }
+.contact-form h3 { font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; text-transform: uppercase; margin-bottom: 28px; }
+
+/* Green success banner shown after form submit */
+.form-success {
+  margin-top: 16px; padding: 14px 18px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: var(--radius);
+  color: #22c55e;
+  font-size: 0.9rem; font-weight: 500;
+  display: flex; align-items: center; gap: 10px;
+}
+
+
+/* ============================================================
+   14. FOOTER
+   ─────────────────────────────────────────────────────────────
+   4-column grid:
+   Col 1 (2fr wide): logo + tagline
+   Col 2: quick links
+   Col 3: tool links
+   Col 4: contact info
+
+   Bottom bar: thin line + copyright text.
+============================================================ */
+.footer { background: var(--dark-2); border-top: 1px solid rgba(255,255,255,0.06); padding: 64px 0 0; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; }
+
+.footer-brand { display: flex; flex-direction: column; gap: 16px; }
+.footer-brand .logo-nu, .footer-brand .logo-step { font-size: 2rem; }
+.footer-brand .logo-sub { font-size: 0.65rem; }
+.footer-brand p { color: var(--gray); font-size: 0.875rem; line-height: 1.7; margin-top: 8px; }
+
+.footer-links h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--white); margin-bottom: 20px; }
+.footer-links ul { display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 0.875rem; color: var(--gray); transition: color var(--transition); }
+.footer-links a:hover { color: var(--red); }
+
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding: 20px 0; text-align: center; color: var(--gray); font-size: 0.82rem; }
+
+
+/* ============================================================
+   15. SCROLL ANIMATION (Fade Up)
+   ─────────────────────────────────────────────────────────────
+   Elements with class "fade-up" start invisible and slightly
+   below their normal position. When they scroll into view,
+   JS adds class "visible" which transitions them to full opacity
+   and their correct position.
+
+   Applied to: service cards, gallery items, pricing cards,
+   testimonials, about section, contact section.
+   Logic is in script.js → IntersectionObserver
+============================================================ */
+.fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+
+/* ============================================================
+   16. RESPONSIVE (Mobile & Tablet)
+   ─────────────────────────────────────────────────────────────
+   Three breakpoints:
+   → max-width: 1024px = Tablet (iPad landscape etc.)
+   → max-width: 768px  = Mobile (phones, small tablets)
+   → max-width: 480px  = Small phones
+
+   Key changes on mobile:
+   → Nav links hide, hamburger shows
+   → Multi-column grids collapse to 1 column
+   → Hero title shrinks
+   → About secondary image hides
+   → Pricing shows as single column stacked cards
+============================================================ */
+
+/* ─── TABLET (1024px and below) ─── */
+@media (max-width: 1024px) {
+  .services-grid       { grid-template-columns: repeat(2, 1fr); } /* 3 cols → 2 cols */
+  .testimonials-grid   { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid         { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .pricing-card.featured { transform: none; }                      /* Remove scale-up on tablet */
+  .pricing-card.featured:hover { transform: translateY(-6px); }
+}
+
+/* ─── MOBILE (768px and below) ─── */
+@media (max-width: 768px) {
+  .section { padding: 60px 0; } /* Reduce section spacing on mobile */
+
+  /* Hide nav links and Join Now button, show hamburger instead */
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  /* Mobile nav menu (drops down when hamburger clicked) */
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; top: 60px; left: 0; right: 0;
+    background: var(--dark);
+    padding: 24px 20px; gap: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 999;
+  }
+  .nav-links.open a { font-size: 1.1rem; }
+
+  /* Hero */
+  .hero-title  { font-size: clamp(2.5rem, 10vw, 4rem); }
+  .hero-stats  { gap: 20px; }
+  .stat-divider { display: none; } /* Hide vertical dividers between stats */
+
+  /* About: stack photos above text, hide overlapping small photo */
+  .about-grid    { grid-template-columns: 1fr; gap: 48px; }
+  .about-img-sm  { display: none; }
+  .about-badge   { left: 16px; }
+
+  /* Services: 1 column */
+  .services-grid { grid-template-columns: 1fr; }
+
+  /* Gallery: 2 column (simpler layout) */
+  .gallery-grid  { grid-template-columns: 1fr 1fr; }
+  .g-tall        { grid-row: span 1; }
+  .g-tall img    { height: 250px; }
+  .g-wide        { grid-column: span 2; }
+
+  /* Calculators: stack input/result vertically */
+  .calc-grid  { grid-template-columns: 1fr; }
+  .calc-panel { padding: 24px 20px; }
+
+  /* Pricing: single column, limited width and centred */
+  .pricing-grid              { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .pricing-card.featured     { transform: none; }
+
+  /* Testimonials: 1 column */
+  .testimonials-grid { grid-template-columns: 1fr; }
+
+  /* Contact: stack info and form vertically */
+  .contact-grid  { grid-template-columns: 1fr; gap: 40px; }
+  .contact-form  { padding: 28px 20px; }
+
+  /* Footer: single column */
+  .footer-grid   { grid-template-columns: 1fr; gap: 32px; }
+  .bmi-scale     { padding: 0 20px 24px; }
+}
+
+/* ─── SMALL PHONES (480px and below) ─── */
+@media (max-width: 480px) {
+  .hero-btns { flex-direction: column; }   /* Buttons stack vertically */
+  .btn-lg    { text-align: center; justify-content: center; }
+  .gallery-grid { grid-template-columns: 1fr; } /* Gallery goes to 1 column */
+  .g-wide    { grid-column: span 1; }
+  .scale-bar { font-size: 0.6rem; }         /* BMI scale text shrinks */
+}
