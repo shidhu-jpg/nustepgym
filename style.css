@@ -268,7 +268,7 @@ ul { list-style: none; }
 ============================================================ */
 .hero {
   min-height: 100vh; /* Full screen height */
-  background: url('https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=1600&q=80') center/cover no-repeat;
+  background: url('images/gymrealimage.png') center/cover no-repeat;
   display: flex;
   align-items: center;
   position: relative;
@@ -710,6 +710,87 @@ ul { list-style: none; }
 .testi-author strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
 .testi-author span { font-size: 0.78rem; color: var(--red); font-weight: 600; } /* Achievement text in red */
 
+
+/* ============================================================
+   BEFORE / AFTER TRANSFORMATION PHOTOS (inside testimonial cards)
+   ─────────────────────────────────────────────────────────────
+   .ba-container  = flex row holding the two photo slots
+   .ba-slot       = one half (before OR after)
+   .ba-placeholder = dashed empty state shown when no photo added
+   .ba-img        = the real photo (added by gym owner later)
+   .ba-label      = "BEFORE" / "AFTER ✓" pill at bottom of slot
+
+   TO ADD REAL PHOTOS: replace the <div class="ba-placeholder"> in
+   each .ba-slot with <img src="images/photo.jpg" class="ba-img" />
+============================================================ */
+.ba-container {
+  display: flex;
+  gap: 6px;
+  height: 155px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.ba-slot {
+  flex: 1;
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+/* Real photo — shown when gym owner adds src -->
+.ba-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.ba-slot:hover .ba-img { transform: scale(1.04); }
+
+/* Placeholder slot shown until real photo is added */
+.ba-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--dark-4);
+  border: 1.5px dashed rgba(255,255,255,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.25);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all var(--transition);
+}
+.ba-placeholder i { font-size: 1.5rem; }
+.ba-placeholder:hover {
+  border-color: rgba(232,0,61,0.35);
+  color: rgba(255,255,255,0.45);
+  background: rgba(232,0,61,0.04);
+}
+
+/* "BEFORE" / "AFTER ✓" pill label pinned at bottom-centre of slot */
+.ba-label {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+/* "AFTER ✓" label uses green background */
+.ba-label.after { background: rgba(34,197,94,0.82); }
 
 /* ============================================================
    13. CONTACT SECTION
