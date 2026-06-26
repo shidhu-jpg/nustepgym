@@ -450,18 +450,16 @@ ul { list-style: none; }
    TO ADD MORE PHOTOS: add another <div class="gallery-item"> in HTML.
    TO CHANGE PHOTO SIZE: edit height values on .gallery-item img
 ============================================================ */
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto auto; gap: 16px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 250px 250px; gap: 16px; }
 
 .gallery-item {
-  position: relative; /* Needed so overlay sits on top of photo */
-  overflow: hidden;   /* Clips the zoomed photo inside rounded corners */
+  position: relative;
+  overflow: hidden;
   border-radius: var(--radius-lg);
   cursor: pointer;
 }
-.gallery-item img { width: 100%; height: 250px; object-fit: cover; transition: transform 0.5s ease; }
-.g-tall img  { height: 516px; }  /* Tall first photo (spans 2 rows worth of height) */
-.g-wide { grid-column: span 2; } /* Wide photo (spans 2 columns) */
-.g-wide img  { height: 250px; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.g-tall { grid-row: span 2; }
 
 /* Hover overlay — gradient from red at bottom to transparent at top */
 .gallery-overlay {
@@ -1130,10 +1128,8 @@ ul { list-style: none; }
   .services-grid { grid-template-columns: 1fr; }
 
   /* Gallery: 2 column (simpler layout) */
-  .gallery-grid  { grid-template-columns: 1fr 1fr; }
+  .gallery-grid  { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 200px); }
   .g-tall        { grid-row: span 1; }
-  .g-tall img    { height: 250px; }
-  .g-wide        { grid-column: span 2; }
 
   /* Calculators: stack input/result vertically */
   .calc-grid  { grid-template-columns: 1fr; }
@@ -1162,8 +1158,8 @@ ul { list-style: none; }
 @media (max-width: 480px) {
   .hero-btns { flex-direction: column; }   /* Buttons stack vertically */
   .btn-lg    { text-align: center; justify-content: center; }
-  .gallery-grid { grid-template-columns: 1fr; } /* Gallery goes to 1 column */
-  .g-wide    { grid-column: span 1; }
+  .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 220px); }
+  .g-tall    { grid-row: span 1; }
   .scale-bar { font-size: 0.6rem; }         /* BMI scale text shrinks */
   .quick-passes { grid-template-columns: 1fr; }
   .gym-info-grid { grid-template-columns: 1fr; }
