@@ -211,10 +211,16 @@
         <!-- LEFT SIDE: Photos -->
         <div class="about-images">
           <!-- MAIN large photo -->
-          <img src="images/dumbell.png" alt="Gym interior" class="about-img-main" />
+          <picture>
+            <source srcset="images/dumbell.webp" type="image/webp" />
+            <img src="images/dumbell.png" alt="Gym interior" class="about-img-main" />
+          </picture>
 
           <!-- SMALL overlapping photo (bottom-right corner of main photo) -->
-          <img src="images/gymimage.png" alt="Weight training" class="about-img-sm" />
+          <picture>
+            <source srcset="images/gymimage.webp" type="image/webp" />
+            <img src="images/gymimage.png" alt="Weight training" class="about-img-sm" />
+          </picture>
 
           <!-- RED BADGE (top-left, overlapping the photo) -->
           <div class="about-badge">
@@ -364,34 +370,47 @@
       <div class="gallery-grid">
 
         <!-- PHOTO 1: Tall (left column, spans 2 rows) -->
-        <!-- REPLACE src with real photo. Keep class="g-tall" for tall layout -->
         <div class="gallery-item g-tall">
-          <img src="images/gymimage.png" alt="Gym floor" />
-          <!-- Overlay text shown on hover -->
+          <picture>
+            <source srcset="images/gymimage.webp" type="image/webp" />
+            <img src="images/gymimage.png" alt="Gym floor" loading="lazy" />
+          </picture>
           <div class="gallery-overlay"><span>Main Gym Floor</span></div>
         </div>
 
         <!-- PHOTO 2: Normal -->
         <div class="gallery-item">
-          <img src="images/machine.png" alt="Weight area" />
+          <picture>
+            <source srcset="images/machine.webp" type="image/webp" />
+            <img src="images/machine.png" alt="Weight area" loading="lazy" />
+          </picture>
           <div class="gallery-overlay"><span>Cardio Zone </span></div>
         </div>
 
         <!-- PHOTO 3: Normal -->
         <div class="gallery-item">
-          <img src="images/gymimage4.png" alt="Cardio zone" />
+          <picture>
+            <source srcset="images/gymimage4.webp" type="image/webp" />
+            <img src="images/gymimage4.png" alt="Cardio zone" loading="lazy" />
+          </picture>
           <div class="gallery-overlay"><span>Pro Equipments </span></div>
         </div>
 
         <!-- PHOTO 4: Normal -->
         <div class="gallery-item">
-          <img src="images/WhatsApp Image 2026-06-26 at 09.27.27.jpeg" alt="Training session" />
+          <picture>
+            <source srcset="images/WhatsApp Image 2026-06-26 at 09.27.27.webp" type="image/webp" />
+            <img src="images/WhatsApp Image 2026-06-26 at 09.27.27.jpeg" alt="Training session" loading="lazy" />
+          </picture>
           <div class="gallery-overlay"><span>Dance studio </span></div>
         </div>
 
         <!-- PHOTO 5: Wide (spans 2 columns) — keep class="g-wide" -->
         <div class="gallery-item g-wide">
-          <img src="images/gymimage3.png" alt="Strength training" />
+          <picture>
+            <source srcset="images/gymimage3.webp" type="image/webp" />
+            <img src="images/gymimage3.png" alt="Strength training" loading="lazy" />
+          </picture>
           <div class="gallery-overlay"><span>Strength Zone</span></div>
         </div>
  
