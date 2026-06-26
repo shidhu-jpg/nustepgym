@@ -446,23 +446,10 @@
             <!-- LEFT: Input fields -->
             <div class="calc-inputs">
 
-              <!-- METRIC / IMPERIAL toggle buttons -->
-              <!-- onclick="setUnit('metric')" calls the JS function in script.js -->
-              <div class="unit-toggle">
-                <button class="unit-btn active" id="metricBtn" onclick="setUnit('metric')">Metric (cm/kg)</button>
-                <button class="unit-btn" id="imperialBtn" onclick="setUnit('imperial')">Imperial (ft/lbs)</button>
-              </div>
-
-              <!-- HEIGHT input for Metric (shown by default) -->
-              <div class="form-group" id="heightMetric">
-                <label>Height (cm)</label>
-                <input type="number" id="heightCm" placeholder="e.g. 175" min="50" max="250" />
-              </div>
-
-              <!-- HEIGHT inputs for Imperial (hidden by default, shown by JS) -->
-              <div class="form-row" id="heightImperial" style="display:none">
+              <!-- HEIGHT inputs in feet and inches -->
+              <div class="form-row">
                 <div class="form-group">
-                  <label>Feet</label>
+                  <label>Height (ft)</label>
                   <input type="number" id="heightFt" placeholder="5" min="1" max="8" />
                 </div>
                 <div class="form-group">
@@ -473,7 +460,7 @@
 
               <!-- WEIGHT input — label unit (kg/lbs) changes with unit toggle -->
               <div class="form-group">
-                <label>Weight (<span id="weightUnit">kg</span>)</label>
+                <label>Weight (kg)</label>
                 <input type="number" id="bmiWeight" placeholder="e.g. 70" min="1" max="500" />
               </div>
 
@@ -539,9 +526,15 @@
                 </select>
               </div>
 
-              <div class="form-group">
-                <label>Height (cm)</label>
-                <input type="number" id="calHeight" placeholder="e.g. 175" />
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Height (ft)</label>
+                  <input type="number" id="calHeightFt" placeholder="5" min="1" max="8" />
+                </div>
+                <div class="form-group">
+                  <label>Inches</label>
+                  <input type="number" id="calHeightIn" placeholder="9" min="0" max="11" />
+                </div>
               </div>
 
               <div class="form-group">
@@ -991,159 +984,6 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-    SECTION 9 — TESTIMONIALS (Success Stories)
-    ─────────────────────────────────────────────────────────────
-    3 review cards. Each has stars, a quote, and the person's
-    photo + name + result achieved.
-
-    THINGS YOU WILL WANT TO CHANGE:
-    → Replace with REAL member testimonials once you have them
-    → Photo: currently using random placeholder faces from randomuser.me
-      Replace src="https://randomuser.me/..." with a real member photo
-      or remove the <img> entirely if no photo available
-    → Star rating: 5 x <i class="fa-solid fa-star"> = 5 stars.
-      For 4 stars, change the last one to fa-regular fa-star
-    → Quote text inside <p class="testi-text">
-    → Member name in <strong>
-    → Achievement text in <span> (e.g. "Lost 18 kg")
-  ============================================================ -->
-  <section class="testimonials section bg-dark">
-    <div class="container">
-      <div class="section-header">
-        <p class="section-tag">Success Stories</p>
-        <h2 class="section-title">Real People, <span class="accent">Real Results</span></h2>
-      </div>
-
-      <div class="testimonials-grid">
-
-        <!-- TESTIMONIAL 1 -->
-        <div class="testi-card">
-
-          <!-- ── BEFORE / AFTER PHOTOS ──
-               HOW TO ADD REAL PHOTOS:
-               1. Put the photo files in the images/ folder
-                  e.g.  images/manpreet-before.jpg  and  images/manpreet-after.jpg
-               2. Replace the <div class="ba-placeholder"> block inside each .ba-slot
-                  with: <img src="images/manpreet-before.jpg" alt="Before" class="ba-img" />
-               3. Do the same for the After slot.
-               Until real photos are added, the dashed placeholder boxes are shown. -->
-          <!-- <div class="ba-container">
-            <div class="ba-slot">
-              <!-- REPLACE this div with a real <img> when photo is available -->
-              <!-- <div class="ba-placeholder">
-                <i class="fa-solid fa-camera"></i>
-                <span>Before Photo</span>
-              </div>
-              <div class="ba-label">BEFORE</div>
-            </div>
-            <div class="ba-slot">
-              <!-- REPLACE this div with a real <img> when photo is available -->
-              <!-- <div class="ba-placeholder">
-                <i class="fa-solid fa-camera"></i>
-                <span>After Photo</span>
-              </div> -->
-              <!-- <div class="ba-label after">AFTER ✓</div> -->
-            <!-- </div>
-          </div> -->
-
-          <!-- 5 star icons — change to fewer for lower rating -->
-          <!-- <div class="testi-stars">
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-          <!-- The quote — REPLACE with real member quote -->
-          <!-- <p class="testi-text">"Lost 18 kg in 4 months with the guidance of NuStep trainers. The diet plan + workout combo was a game changer. Best gym in Jalandhar by far!"</p>
-          <div class="testi-author">
-            <!-- REPLACE this placeholder photo with real member photo -->
-            <!-- <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=100&h=100&fit=crop&crop=face&q=80" alt="Manpreet Singh" />
-            <div>
-              <strong>Manpreet Singh</strong>   <!-- Member name -->
-              <!-- <span>Lost 18 kg</span>            <!-- Achievement label -->
-            <!-- </div>
-          </div> 
-        </div>  
-
-        <!-- TESTIMONIAL 2 -->
-        <div class="testi-card">
-
-          <!-- BEFORE/AFTER — replace placeholder divs with real <img> tags (see Testimonial 1 comment) -->
-          <!-- <div class="ba-container">
-            <div class="ba-slot">
-              <div class="ba-placeholder">
-                <i class="fa-solid fa-camera"></i>
-                <span>Before Photo</span>
-              </div>
-              <div class="ba-label">BEFORE</div>
-            </div>
-            <div class="ba-slot">
-              <div class="ba-placeholder">
-                <i class="fa-solid fa-camera"></i>
-                <span>After Photo</span>
-              </div>
-              <div class="ba-label after">AFTER ✓</div>
-            </div>
-          </div> -->
-
-          <div class="testi-stars">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-          <p class="testi-text">"The environment here is incredibly motivating. Trainers actually care about your progress. I've gained 7 kg of muscle in 3 months — amazing!"</p>
-          <div class="testi-author">
-            <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=100&h=100&fit=crop&crop=face&q=80" alt="Harleen Kaur" />
-            <div>
-              <strong>Harleen Kaur</strong>
-              <span>Gained 7 kg muscle</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- TESTIMONIAL 3 -->
-        <div class="testi-card">
-
-          <!-- BEFORE/AFTER — replace placeholder divs with real <img> tags (see Testimonial 1 comment) -->
-          <!-- <div class="ba-container">
-            <div class="ba-slot">
-              <div class="ba-placeholder">
-                <i class="fa-solid fa-camera"></i>
-                <span>Before Photo</span>
-              </div>
-              <div class="ba-label">BEFORE</div>
-            </div>
-            <div class="ba-slot">
-              <div class="ba-placeholder">
-                <i class="fa-solid fa-camera"></i>
-                <span>After Photo</span>
-              </div>
-              <div class="ba-label after">AFTER ✓</div>
-            </div>
-          </div> -->
-
-          <div class="testi-stars">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-          </div>
-          <p class="testi-text">"As a diabetic I was skeptical, but the trainers designed a safe program for me. My sugar levels improved and I feel 10 years younger. Highly recommend!"</p>
-          <div class="testi-author">
-            <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?w=100&h=100&fit=crop&crop=face&q=80" alt="Rajesh Kumar" />
-            <div>
-              <strong>Rajesh Kumar</strong>
-              <span>Health transformed</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- end testimonials-grid -->
     </div>
   </section>
 

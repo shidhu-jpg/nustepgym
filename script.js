@@ -82,31 +82,6 @@ document.querySelectorAll('.calc-tab').forEach(tab => {
 });
 
 
-/* ============================================================
-   4. UNIT TOGGLE (Metric ↔ Imperial) — BMI Calculator only
-   ─────────────────────────────────────────────────────────────
-   setUnit() is called from onclick in the HTML buttons.
-   It shows/hides the correct height inputs and updates the
-   weight label text (kg or lbs).
-
-   DO NOT CHANGE the function name — it's called from HTML.
-============================================================ */
-let currentUnit = 'metric'; /* Tracks which unit system is active */
-
-function setUnit(unit) {
-  currentUnit = unit;
-
-  /* Toggle active class on the two buttons */
-  document.getElementById('metricBtn').classList.toggle('active', unit === 'metric');
-  document.getElementById('imperialBtn').classList.toggle('active', unit === 'imperial');
-
-  /* Show the right height input group */
-  document.getElementById('heightMetric').style.display   = unit === 'metric'   ? 'block' : 'none';
-  document.getElementById('heightImperial').style.display = unit === 'imperial' ? 'flex'  : 'none';
-
-  /* Update weight label (kg vs lbs) */
-  document.getElementById('weightUnit').textContent = unit === 'metric' ? 'kg' : 'lbs';
-}
 
 
 /* ============================================================
@@ -128,26 +103,15 @@ function setUnit(unit) {
    TO CHANGE tips/advice text → edit getBMIInfo() below.
 ============================================================ */
 function calculateBMI() {
-  let heightM, weightKg;
-
-  /* ── Get height in metres ── */
-  if (currentUnit === 'metric') {
-    const cm = parseFloat(document.getElementById('heightCm').value);
-    /* Validate: must be between 50cm and 250cm */
-    if (!cm || cm < 50 || cm > 250) return showError('bmiResult', 'Please enter a valid height (50–250 cm)');
-    heightM = cm / 100;
-  } else {
-    /* Imperial: convert feet+inches to metres */
-    const ft  = parseFloat(document.getElementById('heightFt').value) || 0;
-    const inc = parseFloat(document.getElementById('heightIn').value) || 0;
-    if (!ft) return showError('bmiResult', 'Please enter a valid height');
-    heightM = ((ft * 12) + inc) * 0.0254; /* 1 inch = 0.0254 metres */
-  }
+  /* ── Get height in metres from ft + inches ── */
+  const ft  = parseFloat(document.getElementById('heightFt').value) || 0;
+  const inc = parseFloat(document.getElementById('heightIn').value) || 0;
+  if (!ft) return showError('bmiResult', 'Please enter a valid height');
+  const heightM = ((ft * 12) + inc) * 0.0254;
 
   /* ── Get weight in kg ── */
-  const rawWeight = parseFloat(document.getElementById('bmiWeight').value);
-  if (!rawWeight || rawWeight < 1) return showError('bmiResult', 'Please enter a valid weight');
-  weightKg = currentUnit === 'metric' ? rawWeight : rawWeight * 0.453592; /* 1 lb = 0.453592 kg */
+  const weightKg = parseFloat(document.getElementById('bmiWeight').value);
+  if (!weightKg || weightKg < 1) return showError('bmiResult', 'Please enter a valid weight');
 
   /* ── Read age and gender (used in getBMIInfo for context) ── */
   const age    = parseInt(document.getElementById('bmiAge').value);
@@ -269,12 +233,14 @@ function getBMIInfo(bmi, age, gender) {
 function calculateCalories() {
   const age      = parseFloat(document.getElementById('calAge').value);
   const gender   = document.getElementById('calGender').value;
-  const height   = parseFloat(document.getElementById('calHeight').value); /* cm */
+  const calFt    = parseFloat(document.getElementById('calHeightFt').value) || 0;
+  const calIn    = parseFloat(document.getElementById('calHeightIn').value) || 0;
+  const height   = ((calFt * 12) + calIn) * 2.54; /* convert ft+in to cm */
   const weight   = parseFloat(document.getElementById('calWeight').value); /* kg */
   const activity = parseFloat(document.getElementById('calActivity').value); /* multiplier */
   const goal     = parseInt(document.getElementById('calGoal').value);       /* kcal adjustment */
 
-  if (!age || !height || !weight) return showError('calResult', 'Please fill all fields');
+  if (!age || !calFt || !weight) return showError('calResult', 'Please fill all fields');
 
   /* ── Mifflin-St Jeor BMR formula ── */
   let bmr;
